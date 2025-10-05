@@ -1,26 +1,22 @@
-# Python
 __pycache__/
 *.py[cod]
 *.sqlite3
 db.sqlite3
-
-# Virtual environments
 venv/
 .env
 .venv/
-
-# Editor / OS
 .vscode/
 *.log
 .DS_Store
-
-# Python packaging / cache
 pip-wheel-metadata/
 .eggs/
 .pytest_cache/
-
-# Build
 build/
 dist/
-
 env.py
+node_modules/
+core.mongo*
+core.Microsoft*
+core.python*
+cloudinary_python.txt
+.github/
