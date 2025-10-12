@@ -20,3 +20,4 @@ core.Microsoft*
 core.python*
 cloudinary_python.txt
 .github/
+blog/fixtures/
