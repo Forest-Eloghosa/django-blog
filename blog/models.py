@@ -39,3 +39,26 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment {self.body} by {self.author}"
+
+
+class Event(models.Model):
+    """A minimal Event model for the events example views.
+
+    Fields:
+    - title: short title
+    - slug: URL-friendly identifier (optional)
+    - description: longer text
+    - date: date/time of the event
+    - created_on: when record was created
+    """
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, blank=True, null=True)
+    description = models.TextField(blank=True)
+    date = models.DateTimeField(null=True, blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.title} ({self.date})"

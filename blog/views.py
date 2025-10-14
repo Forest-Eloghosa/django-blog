@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from .models import Post
+from .models import Event
+
 
 
 def post_detail(request, slug):
@@ -24,6 +26,25 @@ def post_detail(request, slug):
         request,
         "blog/post_detail.html",
         {"post": post},
+    )
+
+
+def event_detail(request, event_id):
+    """
+    Display an individual :model:`blog.Event`.
+
+    Context:
+    ``event`` - an Event instance
+
+    Template:
+    `events/event_detail.html`
+    """
+    event = get_object_or_404(Event, event_id=event_id)
+
+    return render(
+        request,
+        "events/event_detail.html",
+        {"event": event},
     )
 
 # Create your views here.
