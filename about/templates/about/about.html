@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row align-items-start">
+    <div class="col-md-4 text-center mb-3">
+      {# Use an SVG placeholder so the image is visible but blank #}
+      <img src="{% static 'images/nobody.svg' %}" alt="Profile avatar" class="img-fluid rounded-circle" style="max-width:220px; background:#e9ecef;" />
+    </div>
+    <div class="col-md-8">
+      {% if about %}
+        <h2 class="mb-3">{{ about.title }}</h2>
+        <div class="about-content">{{ about.content|safe }}</div>
+      {% else %}
+        {# Default title when no About object exists #}
+        <h2 class="mb-3">About CodeStar</h2>
+
+        <p>Hi, I’m Forest Eloghosa, the author behind CodeStar. This blog serves as a platform for sharing insights and experiences from my journey as a software developer. Here, you’ll find a collection of articles covering various topics, including best practices, troubleshooting tips, and personal anecdotes.</p>
+        <p>I started CodeStar to create a space where I can document my learning process and help others navigate the ever-evolving world of software development. Whether you’re a beginner looking for guidance or an experienced developer seeking fresh perspectives, I hope you find something valuable here.</p>
+        <p>My goal is to provide valuable content that resonates with both aspiring and experienced developers. I believe in the power of community and knowledge sharing, so I encourage you to engage with the content and share your thoughts.</p>
+        
+        <p>Feel free to reach out if you have questions, suggestions, or just want to say hi. Happy coding!</p>
+        <p>Thanks for stopping by!</p>
+        <p>— Forest</p>
+
+       
+        
+      {% endif %}
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col text-end">
+      {% if about and about.updated_on %}
+        <p class="text-end"><em>Updated on: {{ about.updated_on|date:"M j, Y, g:i a" }}</em></p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
