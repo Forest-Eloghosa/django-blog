@@ -26,17 +26,19 @@ def post_detail(request, slug):
     comment_count = post.comments.filter(approved=True).count()
 
     if request.method == "POST":
-     comment_form = CommentForm(data=request.POST)
-    if comment_form.is_valid():
-        comment = comment_form.save(commit=False)
-        comment.author = request.user
-        comment.post = post
-        comment.save()
-        messages.add_message(
-        request, messages.SUCCESS,
-        'Comment submitted and awaiting approval'
-    )
-    comment_form = CommentForm()
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            # associate the comment with the logged-in user and the current post
+            comment.author = request.user
+            comment.post = post
+            comment.save()
+            messages.success(request, "Comment submitted and awaiting approval")
+            # create a new blank form after successful submit
+            comment_form = CommentForm()
+    else:
+        # GET: present an empty comment form
+        comment_form = CommentForm()
 
     return render(
         request,
@@ -61,7 +63,7 @@ def event_detail(request, event_id):
     Template:
     `events/event_detail.html`
     """
-    event = get_object_or_404(Event, event_id=event_id)
+    event = get_object_or_404(Event, pk=event_id)
 
     return render(
         request,
