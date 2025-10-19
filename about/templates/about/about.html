@@ -1,39 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 {% block content %}
 <div class="container mt-5">
-  <div class="row align-items-start">
-    <div class="col-md-4 text-center mb-3">
+  <div class="row">
+    <div class="col-12 col-md-4 text-center mb-4">
       {# Use an SVG placeholder so the image is visible but blank #}
       <img src="{% static 'images/nobody.svg' %}" alt="Profile avatar" class="img-fluid rounded-circle" style="max-width:220px; background:#e9ecef;" />
     </div>
-    <div class="col-md-8">
-      {% if about %}
-        <h2 class="mb-3">{{ about.title }}</h2>
-        <div class="about-content">{{ about.content|safe }}</div>
-      {% else %}
-        {# Default title when no About object exists #}
-        <h2 class="mb-3">About CodeStar</h2>
+    <div class="col-12 col-md-8">
+        <h2>{{ about.title }}</h2>
+        {{ about.content|safe }}
+      </div>
+      </div>
+      <div class="row">
+        <div class="col text-right">
+  <!-- Updated on field goes in here -->
 
-        <p>Hi, I’m Forest Eloghosa, the author behind CodeStar. This blog serves as a platform for sharing insights and experiences from my journey as a software developer. Here, you’ll find a collection of articles covering various topics, including best practices, troubleshooting tips, and personal anecdotes.</p>
-        <p>I started CodeStar to create a space where I can document my learning process and help others navigate the ever-evolving world of software development. Whether you’re a beginner looking for guidance or an experienced developer seeking fresh perspectives, I hope you find something valuable here.</p>
-        <p>My goal is to provide valuable content that resonates with both aspiring and experienced developers. I believe in the power of community and knowledge sharing, so I encourage you to engage with the content and share your thoughts.</p>
-        
-        <p>Feel free to reach out if you have questions, suggestions, or just want to say hi. Happy coding!</p>
-        <p>Thanks for stopping by!</p>
-        <p>— Forest</p>
-
-       
-        
-      {% endif %}
+        <p class="text-end"><em>Updated on: {{ about.updated_on }}</em></p>
     </div>
   </div>
-  <div class="row mt-4">
-    <div class="col text-end">
-      {% if about and about.updated_on %}
-        <p class="text-end"><em>Updated on: {{ about.updated_on|date:"M j, Y, g:i a" }}</em></p>
-      {% endif %}
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 my-5">
+      <h2>Let's collaborate!</h2>
+      <p>I believe in the power of shared knowledge and collective effort.
+        Whether you have a project in mind, wish to co-author
+        an article, or simply want to brainstorm some ideas,
+        I'm excited to hear from you. Fill out the form
+        and we can get the ball rolling!</p>
+
+      <!-- add your form here. Your submit button should 
+                                have the classes of btn, btn-secondary -->
+      <form method="post">
+        {{ collaborate_form | crispy }}
+        {% csrf_token %}
+        <button class="btn btn-secondary" type="submit">Submit</button>
+      </form>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 {% endblock content %}
