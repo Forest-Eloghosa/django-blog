@@ -10,6 +10,23 @@ class About(models.Model):
      """
      title = models.CharField(max_length=200)
      profile_image = CloudinaryField('image', default='placeholder')
+     
+     @property
+     def image_url(self):
+         """
+         Return a safe URL for the about profile image.
+         Falls back to a static default if the Cloudinary field isn't available
+         or accessing `.url` raises an exception in production.
+         """
+         try:
+             url = self.profile_image.url
+             if url:
+                 return url
+         except Exception:
+             pass
+
+         from django.conf import settings
+         return settings.STATIC_URL + 'images/nobody.jpg'
      updated_on = models.DateTimeField(auto_now=True)
      content = models.TextField()
 
